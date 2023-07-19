@@ -10,13 +10,16 @@ const Home = () => {
           src={Logo}
           alt="logo"
           effect="blur"
-          className="max-w-[500px]"
+          className="max-w-[300px]"
         />
-        <p className="text-xl text-neutral-300 text-center mt-3 px-3">Modern, fast and secure chat. Built with React, Nest.js and Socket.io.</p>
+        <p className="text-xl text-neutral-300 text-center mt-3 px-3">
+          Chatty App built with React, ElectronJS, NestJS, Sequelize, Postgres and Socket.io.
+        </p>
         <ul className="list-disc text-xl text-neutral-400 mt-6">
-          <li>Conversate one on one or create channels.</li>
-          <li>Add friend or block someone.</li>
+          <li>Converse one-on-one or create channels</li>
+          <li>Add friend or block</li>
           <li>Chat with your friends as much as you want.</li>
+          <li>In development mode...</li>
         </ul>
         <Link
           to='/addfriend'

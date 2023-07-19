@@ -26,7 +26,7 @@ const EditForm: FC<Props> = ({ channel, participants, setParticipants, admins, s
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        var imageUrl = image;
+        let imageUrl = image;
 
         if (image !== channel.image) {
             imageUrl = await uploadUserImage(e.target.image.files[0]);
