@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
 
@@ -14,8 +14,8 @@ const Login = () => {
   const [lastUser, setLastUser] = useState<string>(Cookies.get('last_user') || '');
 
   return (
-    <div className="flex justify-center items-center h-[100vh]">
-      <div className="bg-neutral-800 px-3 py-10 shadow-lg rounded-md text-white min-h-[500px] w-full sm:w-[400px] h-full sm:h-auto">
+    <div className="flex justify-center items-center h-[100vh] bg-white dark:bg-black text-black dark:text-white">
+      <div className="bg-neutral-200 dark:bg-neutral-800 px-3 py-10 shadow-lg rounded-md text-white dark:text-black min-h-[500px] w-full sm:w-[400px] h-full sm:h-auto">
         {
           isFormOpen
             ?
@@ -38,7 +38,7 @@ const Login = () => {
               }
               <Divider />
               <div className="text-center w-[90%] md:w-[80%] mx-auto">
-                <Link className='hover:text-neutral-300 text-neutral-100 duration-200 w-full text-center mx-auto text-lg' to='/register'>Don't have an account? Register</Link>
+                <Link className='hover:text-neutral-700 dark:hover:text-neutral-300 text-neutral-800 dark:text-neutral-100 duration-200 w-full text-center mx-auto text-lg' to='/register'>Don't have an account? Register</Link>
               </div>
             </>
             :

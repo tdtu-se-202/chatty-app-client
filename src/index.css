@@ -2,26 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
-  body{
+/* Change Autocomplete styles in Chrome*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: 1px solid #253341;
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px #253341 inset;
+  box-shadow: 0 0 0px 1000px #253341 inset;
+  transition: background-color 5000s ease-in-out 0s;
+  color: white;
+}
+
+@layer base {
+  body {
     box-sizing: border-box;
     overflow: hidden;
-    background-color: rgb(32, 32, 32);
     min-height: 100vh;
     min-width: 100vw;
-    color: white;
   }
 
-  a{
+  /* Light Mode */
+  body {
+    background-color: rgb(245, 245, 245);
+    color: rgb(32, 32, 32);
+  }
+
+  a {
     color: inherit;
   }
 
-  ::-webkit-scrollbar{
+  ::-webkit-scrollbar {
     width: 5px;
   }
-  
+
   ::-webkit-scrollbar-thumb {
-    background: #333333;
+    background: #cccccc;
   }
-  
+
+  /* Dark Mode */
+  .dark body {
+    background-color: rgb(32, 32, 32);
+    color: white;
+  }
+
+  /*.dark ::-webkit-scrollbar-thumb {*/
+  /*  background: #333333;*/
+  /*}*/
+
+  /*.dark :-webkit-autofill {*/
+  /*  box-shadow: 0 0 0 30px #1c1c1d inset;*/
+  /*  color: white;*/
+  /*}*/
+
+  /*.dark :-webkit-autofill:hover {*/
+  /*  box-shadow: 0 0 0 30px #1c1c1d inset;*/
+  /*}*/
+
+  /*.dark :-webkit-autofill:focus {*/
+  /*  box-shadow: 0 0 0 30px #1c1c1d inset;*/
+  /*}*/
+
+  /*.dark :-webkit-autofill:active {*/
+  /*  box-shadow: 0 0 0 30px #1c1c1d inset;*/
+  /*}*/
 }
+
