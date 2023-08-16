@@ -12,6 +12,7 @@ import { MdAddToPhotos } from 'react-icons/md';
 import { RootState } from '../../../redux/store'
 import { logOut } from '../../../redux/features/authSlice';
 import { getUser } from '../../../services/userService';
+import ThemeToggleButton from "../../buttons/ThemeToggleButton";
 
 const UserBox = () => {
   const navigate = useNavigate();
@@ -62,6 +63,7 @@ const UserBox = () => {
             <FaUserFriends className='mr-3' />
             Friends
           </button>
+          <ThemeToggleButton/>
           <button
             className='w-full hover:bg-neutral-700 duration-200 p-3 px-8 flex items-center'
             onClick={() => dispatch(logOut())}

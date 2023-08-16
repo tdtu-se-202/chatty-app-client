@@ -5,12 +5,10 @@ import { MdMail } from 'react-icons/md';
 import { HiUser } from 'react-icons/hi';
 import { AiFillLock } from 'react-icons/ai';
 import toast, { Toaster } from 'react-hot-toast';
-
 import PasswordInput from '../../../components/inputs/PasswordInput';
 import TextInput from '../../../components/inputs/TextInput';
 import BasicButton from '../../../components/buttons/BasicButton';
 import { createAccount } from '../../../services/authService';
-import Terms from './Terms';
 import Cookies from 'js-cookie';
 
 type Props = {
@@ -24,9 +22,11 @@ const RegisterForm: FC<Props> = ({ setIsFormOpen }) => {
     register,
     reset,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    watch // Added watch to observe values in the form
   } = useForm();
 
+  const password = watch('password');
   const onSubmit = async (data: any) => {
     const { statusCode, message } = await createAccount(data);
 
@@ -111,8 +111,19 @@ const RegisterForm: FC<Props> = ({ setIsFormOpen }) => {
           })
         }}
       />
+      <PasswordInput
+          label='Confirm Password'
+          placeholder='Confirm your password.'
+          error={errors.confirmPassword && errors.confirmPassword.message}
+          Icon={AiFillLock}
+          refs={{
+            ...register('confirmPassword', {
+              required: 'Confirm password is required.',
+              validate: value => value === password || 'Passwords do not match.'
+            })
+          }}
+      />
       <div className='w-[90%] md:w-[80%] mx-auto'>
-        <Terms />
         <BasicButton
           type='submit'
         >

@@ -26,7 +26,7 @@ const LoginForm: FC<Props> = ({ setIsFormOpen }) => {
     register,
     reset,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
 
   const onSubmit = async (data: any) => {
@@ -89,7 +89,7 @@ const LoginForm: FC<Props> = ({ setIsFormOpen }) => {
         Icon={AiFillLock}
         refs={{
           ...register('password', {
-            required: 'password is required',
+            required: 'Password is required',
           })
         }}
       />

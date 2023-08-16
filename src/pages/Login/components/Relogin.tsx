@@ -79,7 +79,7 @@ const Relogin: FC<Props> = ({ id, setIsFormOpen, setLastId }) => {
     <div className="w-full">
       <div className="flex flex-col items-center">
         <LazyLoadImage className="rounded-full w-44 h-44 object-cover" src={lastUser?.image} alt='user-pp' effect="blur" />
-        <h1 className="text-2xl my-5">Welcome <strong>{lastUser?.username}</strong>!</h1>
+        <h1 className="text-2xl my-5 text-neutral-800 dark:text-neutral-100">Welcome <strong>{lastUser?.username}</strong>!</h1>
       </div>
       <form action="POST" onSubmit={handleSubmit}>
         <PasswordInput
@@ -94,7 +94,12 @@ const Relogin: FC<Props> = ({ id, setIsFormOpen, setLastId }) => {
         </div>
       </form>
       <div className="w-full text-center mt-4">
-        <button onClick={handleClickChange} className="text-lg text-neutral-100 hover:text-neutral-300 duration-200">Change Account</button>
+        <button
+            onClick={handleClickChange}
+            className="text-lg dark:hover:text-neutral-300 text-neutral-800 dark:text-neutral-100 hover:text-neutral-300 duration-200"
+        >
+          Change Account
+        </button>
         <Toaster />
       </div>
     </div>

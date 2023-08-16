@@ -1,8 +1,7 @@
 import Cookies from "js-cookie";
-import {useEffect, useState} from "react";
+import { useState} from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
-
 import Logo from '../../assets/brand-logo.png';
 import FormSuccess from "../../components/loading/FormSuccess";
 import Divider from "../Register/components/Divider";
@@ -27,7 +26,7 @@ const Login = () => {
                   :
                   <div>
                     <LazyLoadImage
-                      className='w-[80%] mx-auto border-b border-neutral-700 hidden sm:block'
+                      className='w-[50%] h-[50%] mx-auto border-b border-neutral-700 hidden sm:block'
                       src={Logo}
                       alt='logo'
                       effect='blur'
