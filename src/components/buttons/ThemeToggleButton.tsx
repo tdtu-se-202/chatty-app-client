@@ -33,7 +33,7 @@ const ThemeToggleButton: React.FC = () => {
                 isLoggedIn ?
                     <button
                         onClick={() => dispatch(toggleTheme())}
-                        className='w-full hover:bg-neutral-700 duration-200 p-3 px-8 flex items-center'
+                        className='w-full hover:bg-neutral-300 dark:hover:bg-neutral-700 duration-200 p-3 px-8 flex items-center'
                     >
                         {isDarkMode ? <FiSun className="mr-2" /> : <FiMoon className="mr-2" />}
                         {isDarkMode ? "Light" : "Dark"} Mode

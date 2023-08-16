@@ -41,23 +41,23 @@ const UserBox = () => {
       <p className='ml-3 text-lg w-32 sm:w-64 md:w-40 lg:w-52 xl:w-56 h-7 overflow-hidden'>{loggedUser?.username}</p>
       <div className=' ml-auto cursor-pointer group'>
         <RxDotsVertical className='text-2xl' />
-        <div className='absolute group-hover:block hidden text-white w-full lg:max-w-[220px] md:w-auto bg-neutral-800 border border-neutral-900 shadow-md rounded-md z-50 right-0 '>
+        <div className='absolute group-hover:block hidden text-black dark:text-white  w-full lg:max-w-[220px] md:w-auto bg-neutral-200 dark:bg-neutral-800 border border-neutral-900 shadow-md rounded-md z-50 right-0 '>
           <button
-            className='w-full hover:bg-neutral-700 duration-200 py-3 px-8 flex items-center'
+            className='w-full hover:bg-neutral-300 dark:hover:bg-neutral-700 duration-200 py-3 px-8 flex items-center'
             onClick={() => navigate('/create')}
           >
             <MdAddToPhotos className='mr-3' />
             Create Channel
           </button>
           <button
-            className='w-full hover:bg-neutral-700 duration-200 p-3 px-8 flex items-center'
+            className='w-full hover:bg-neutral-300 dark:hover:bg-neutral-700 duration-200 p-3 px-8 flex items-center'
             onClick={() => navigate('/addfriend')}
           >
             <IoPersonAddSharp className='mr-3' />
             Add Friend
           </button>
           <button
-            className='w-full hover:bg-neutral-700 duration-200 p-3 px-8 flex items-center'
+            className='w-full hover:bg-neutral-300 dark:hover:bg-neutral-700 duration-200 p-3 px-8 flex items-center'
             onClick={() => navigate('/profile', { state: { userId: user?.id } })}
           >
             <FaUserFriends className='mr-3' />
@@ -65,7 +65,7 @@ const UserBox = () => {
           </button>
           <ThemeToggleButton/>
           <button
-            className='w-full hover:bg-neutral-700 duration-200 p-3 px-8 flex items-center'
+            className='w-full hover:bg-neutral-300 dark:hover:bg-neutral-700 duration-200 p-3 px-8 flex items-center'
             onClick={() => dispatch(logOut())}
           >
             <FiLogOut className='mr-3' />

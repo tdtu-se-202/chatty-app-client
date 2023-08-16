@@ -91,7 +91,7 @@ const ProfileEdit = () => {
                     <div className='md:pl-5 flex flex-col justify-center md:mt-0 mt-5'>
                         <p className='md:text-start text-center'>{name ? name.slice(0, 20) + '...' : 'No image selected.'}</p>
                         <button
-                            className='bg-neutral-700 p-3 w-full mt-3 rounded-md hover:bg-neutral-600 duration-200'
+                            className='dark:bg-neutral-800 bg-neutral-200 p-3 w-full mt-3 rounded-md hover:bg-neutral-600 duration-200'
                             onClick={handleClick}
                             type='button'
                         >
@@ -106,7 +106,7 @@ const ProfileEdit = () => {
                         minLength={5}
                         maxLength={20}
                         placeholder='Username'
-                        className='bg-neutral-700 outline-none rounded-md p-2'
+                        className='dark:bg-neutral-900 bg-neutral-100 text-black dark:text-white outline-none rounded-md p-2'
                         type="text"
                         name='username'
                         defaultValue={details?.username}
@@ -116,7 +116,7 @@ const ProfileEdit = () => {
                         spellCheck={false}
                         maxLength={250}
                         placeholder='Write about yourself...'
-                        className='bg-neutral-700 outline-none rounded-md p-2 mb-5 resize-none'
+                        className='dark:bg-neutral-900 bg-neutral-100 text-black dark:text-white outline-none rounded-md p-2 mb-5 resize-none'
                         name="about"
                         cols={30}
                         rows={10}

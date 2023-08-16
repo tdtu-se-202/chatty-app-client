@@ -30,7 +30,7 @@ select:-webkit-autofill:focus {
 
   /* Light Mode */
   body {
-    background-color: rgb(245, 245, 245);
+    background-color: azure;
     color: rgb(32, 32, 32);
   }
 

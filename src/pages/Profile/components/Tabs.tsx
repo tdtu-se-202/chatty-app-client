@@ -41,7 +41,7 @@ const Tabs: FC<Props> = ({ profileId }) => {
                     onClick={handleClickFriends}
                     className={`
                         text-xl py-3 cursor-pointer w-full text-center duration-200 transition-all border-b 
-                        ${tab === 'friends' ? 'border-b-2 font-semibold' : 'hover:border-white border-neutral-700'}
+                        ${tab === 'friends' ? 'border-b-2 font-semibold' : 'dark:hover:border-white dark:border-neutral-700 hover:border-black border-neutral-300'}
                     `}
                 >
                     Friends
@@ -54,7 +54,7 @@ const Tabs: FC<Props> = ({ profileId }) => {
                             onClick={handleClickRequests}
                             className={`
                                 text-xl py-3 cursor-pointer w-full text-center duration-200 transition-all border-b 
-                                ${tab === 'requests' ? 'border-b-2 font-semibold' : 'hover:border-white border-neutral-700'}
+                                ${tab === 'requests' ? 'border-b-2 font-semibold' : 'dark:hover:border-white dark:border-neutral-700 hover:border-black border-neutral-300'}
                             `}
                         >
                             Requests
@@ -63,7 +63,7 @@ const Tabs: FC<Props> = ({ profileId }) => {
                             onClick={handleClickBlock}
                             className={`
                                 text-xl py-3 cursor-pointer w-full text-center duration-200 transition-all border-b 
-                                ${tab === 'blocked' ? 'border-b-2 font-semibold' : 'hover:border-white border-neutral-700'}
+                                ${tab === 'blocked' ? 'border-b-2 font-semibold' : 'dark:hover:border-white dark:border-neutral-700 hover:border-black border-neutral-300'}
                             `}
                         >
                             Blocked

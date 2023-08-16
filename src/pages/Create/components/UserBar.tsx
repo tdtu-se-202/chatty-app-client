@@ -69,7 +69,7 @@ const UserBar: FC<Props> = ({ user, userId, isAdded, participants, setParticipan
     return (
         <div
             className={`
-                w-full items-center bg-neutral-700 rounded-md p-3 my-3
+                w-full items-center dark:bg-neutral-700 bg-neutral-200 rounded-md p-3 my-3
                 ${(search && !isAdded) ? (participant?.username?.toLowerCase().includes(search.toLowerCase()) ? 'flex' : 'hidden') : 'flex'}
             `}
         >
@@ -84,7 +84,7 @@ const UserBar: FC<Props> = ({ user, userId, isAdded, participants, setParticipan
                 <button
                     onClick={handleClick}
                     type='button'
-                    className='bg-neutral-700 text-3xl hover:bg-neutral-600 p-2 rounded-md text-white'
+                    className='dark:bg-neutral-700 bg-neutral-200 text-3xl hover:bg-neutral-600 p-2 rounded-md dark:text-white text-black'
                 >
                     {
                         isAdded
@@ -100,7 +100,7 @@ const UserBar: FC<Props> = ({ user, userId, isAdded, participants, setParticipan
                     <button
                         onClick={handleAddAdmin}
                         type='button'
-                        className='bg-neutral-700 text-3xl hover:bg-neutral-600 p-2 rounded-md text-white'
+                        className='dark:bg-neutral-700 bg-neutral-200 text-3xl hover:bg-neutral-600 p-2 rounded-md dark:text-white text-black'
                         disabled={currentUser?.id === user}
                     >
                         {

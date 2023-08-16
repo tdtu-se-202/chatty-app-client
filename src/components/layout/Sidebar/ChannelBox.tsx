@@ -64,7 +64,7 @@ const ChannelBox: FC<Props> = ({ channel, userId, lastMessage, search }) => {
     <div
       onClick={handleClickChannel}
       className={`
-            w-full items-center p-3 border-b border-neutral-700 hover:bg-neutral-800 duration-200 cursor-pointer
+            w-full items-center p-3 border-b border-neutral-700 dark:hover:bg-neutral-800 hover:bg-neutral-200 duration-200 cursor-pointer
             ${search
                 ?
                 (

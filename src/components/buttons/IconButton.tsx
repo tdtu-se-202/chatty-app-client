@@ -16,7 +16,7 @@ const IconButton: FC<Props> = ({ Icon, text, type, handleClick, isTextCanClosed,
         <button
             type={type}
             onClick={handleClick}
-            className="font-semibold text-xl flex items-center px-3 py-2 bg-neutral-700 hover:bg-neutral-600 duration-200 rounded-md mt-3 mr-3 w-full justify-center"
+            className="font-semibold text-xl flex items-center px-3 py-2 bg-neutral-300 dark:bg-neutral-700  hover:bg-neutral-400 dark:hover:bg-neutral-600 duration-200 rounded-md mt-3 mr-3 w-full justify-center"
         >
             {
                 isPending
