@@ -2,17 +2,22 @@ const electron = require('electron');
 const path = require('path');
 const isDev = require('electron-is-dev');
 
-const { app, BrowserWindow } = electron;
+const { app, BrowserWindow, ipcMain, Notification } = electron;
 
 let mainWindow;
+ipcMain.on('show-notification', (event, title, body) => {
+    const notification = new Notification({ title, body });
+    notification.show();
+});
 
 function createWindow() {
     mainWindow = new BrowserWindow({
         width: 900,
         height: 680,
         webPreferences: {
-            nodeIntegration: true,
-            contextIsolation: false,
+            nodeIntegration: false,
+            contextIsolation: true,
+            preload: path.join(__dirname, 'preload.js')
         },
     });
 
@@ -38,3 +43,4 @@ app.on('activate', () => {
         createWindow();
     }
 });
+

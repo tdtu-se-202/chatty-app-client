@@ -7,14 +7,31 @@ import ThemeToggleButton from "../buttons/ThemeToggleButton";
 type Props = {
     children: ReactNode;
 }
+
+declare global {
+    interface Window {
+        electron: {
+            showNotification(title: string, body: string): void;
+        }
+    }
+}
 const Layout: FC<Props> = ({ children }) => {
     const location = useLocation();
+    const handleShowNotification = () => {
+        const title = 'title';
+        const body = 'body';
+
+        window.electron.showNotification(title, body);
+    };
 
     if (location.pathname === '/login' || location.pathname === '/register') {
         return (
             <>
                 <div className="bg-white dark:bg-black text-black dark:text-white">
                     <ThemeToggleButton/>
+                    <button onClick={handleShowNotification}>
+                        Click me
+                    </button>
                     <div className="flex items-center justify-center flex-col pb-12 min-h-screen md:min-h-fit overflow-auto">
                         {children}
                     </div>
