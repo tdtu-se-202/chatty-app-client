@@ -26,7 +26,7 @@ const EditForm: FC<Props> = ({ channel, participants, setParticipants, admins, s
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        var imageUrl = image;
+        let imageUrl = image;
 
         if (image !== channel.image) {
             imageUrl = await uploadUserImage(e.target.image.files[0]);
@@ -83,9 +83,9 @@ const EditForm: FC<Props> = ({ channel, participants, setParticipants, admins, s
 
     return (
         <form action='POST' className='max-w-[800px] px-3 mx-auto overflow-y-auto overflow-x-hidden' onSubmit={handleSubmit}>
-            <div className='flex items-center justify-center w-full lg:flex-row flex-col py-5 border-b border-neutral-600'>
+            <div className='flex items-center justify-center w-full lg:flex-row flex-col py-5 border-b dark:border-neutral-600 border-neutral-400'>
                 <LazyLoadImage
-                    className={`rounded-full w-52 h-52 object-cover cursor-pointer duration-200 ${!image && 'border-2 border-neutral-600 hover:bg-neutral-700'}`}
+                    className={`rounded-full w-52 h-52 object-cover cursor-pointer duration-200 ${!image && 'border-2 dark:border-neutral-600 border-neutral-400'}`}
                     src={image}
                     alt='ch'
                     onClick={handleClick}
@@ -96,7 +96,7 @@ const EditForm: FC<Props> = ({ channel, participants, setParticipants, admins, s
                         <label htmlFor="name">Name</label>
                         <input
                             defaultValue={channel?.name}
-                            className='bg-neutral-700 rounded-md p-2 outline-none'
+                            className='dark:bg-neutral-700 bg-neutral-300 rounded-md p-2 outline-none'
                             placeholder='Channel Name'
                             maxLength={50}
                             type="text"
@@ -110,7 +110,7 @@ const EditForm: FC<Props> = ({ channel, participants, setParticipants, admins, s
                             defaultValue={channel?.description}
                             name='description'
                             placeholder='Channel Description'
-                            className='bg-neutral-700 p-2 resize-none rounded-md outline-none'
+                            className='dark:bg-neutral-700 bg-neutral-300 p-2 resize-none rounded-md outline-none'
                             maxLength={255}
                             cols={20}
                             rows={5}

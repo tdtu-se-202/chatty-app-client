@@ -35,7 +35,7 @@ const Participants: FC<Props> = ({ participants, setParticipants, admins, setAdm
                         <input
                             onChange={(e: any) => setSearch(e.target.value)}
                             type="text"
-                            className="border-neutral-900 outline-none w-full rounded-md bg-neutral-700 py-3 px-2"
+                            className="dark:border-neutral-900 border-neutral-100 outline-none w-full rounded-md dark:bg-neutral-700 bg-neutral-200 py-3 px-2"
                             placeholder="Search a friend..."
                         />
                     </div>

@@ -118,7 +118,7 @@ const FriendBox: FC<Props> = ({ friend }) => {
                                     <>
                                         <button
                                             onClick={handleClickMessage}
-                                            className="font-semibold text-xl px-3 py-2 bg-neutral-700 hover:bg-neutral-600 duration-200 rounded-md mt-3 mr-3"
+                                            className="font-semibold text-xl px-3 py-2 bg-neutral-300 dark:bg-neutral-700 dark:hover:bg-neutral-600 hover:bg-neutral-400 duration-200 rounded-md mt-3 mr-3"
                                         >
                                             <BiMessageDots className="mx-auto text-3xl" />
                                         </button>

@@ -32,7 +32,7 @@ const Sidebar = () => {
 
     return (
         <aside className={
-            `bg-neutral-900 border-r md:block border-neutral-700 xl:col-span-2 md:col-span-2 min-h-screen md:min-h-fit overflow-hidden  
+            `bg-neutral-100 dark:bg-neutral-900 border-r md:block border-neutral-300 dark:border-neutral-700 xl:col-span-2 md:col-span-2 min-h-screen md:min-h-fit overflow-hidden  
                 ${location.pathname === '/' ? 'block' : 'hidden'} 
             `}
         >
@@ -61,7 +61,7 @@ const Sidebar = () => {
                                     )
                                 })
                                 :
-                                <p className='text-neutral-500 text-center mt-3'>Create a channel now and start chatting.</p>
+                                <p className='text-neutral-800 dark:text-neutral-200 text-center mt-3'>Create a channel now and start chatting.</p>
                         )
                 }
             </div>

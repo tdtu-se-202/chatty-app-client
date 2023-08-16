@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 import jwtDecode from 'jwt-decode';
 
-type AuthState = {
+export type AuthState = {
   user: {
     id: string;
     username: string;

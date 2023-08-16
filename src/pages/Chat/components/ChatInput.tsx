@@ -51,7 +51,7 @@ const ChatInput: FC<Props> = ({ channelId, setMessages }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} method="POST" className='w-full mt-auto bg-neutral-900 p-3 sticky bottom-0 border-t border-neutral-700'>
+        <form onSubmit={handleSubmit} method="POST" className='w-full mt-auto dark:bg-neutral-900 bg-neutral-100 p-3 sticky bottom-0 border-t dark:border-neutral-700 border-neutral-300'>
             {
                 images
                 &&
@@ -81,10 +81,10 @@ const ChatInput: FC<Props> = ({ channelId, setMessages }) => {
                     spellCheck='false'
                     type="text"
                     name='chat'
-                    className="bg-neutral-800 rounded-lg w-[90%] h-10 outline-none p-2"
+                    className="dark:bg-neutral-800 bg-neutral-200 rounded-lg w-[90%] h-10 outline-none p-2"
                 />
                 <button type='submit'>
-                    <IoMdSend className='text-2xl hover:text-neutral-300 duration-200' />
+                    <IoMdSend className='text-2xl dark:hover:text-neutral-300 hover:text-neutral-700 duration-200' />
                 </button>
             </div>
         </form>
