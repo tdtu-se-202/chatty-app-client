@@ -1,6 +1,5 @@
 import moment from 'moment';
 import { FC, useState } from 'react'
-import { HiOutlineChevronDown } from 'react-icons/hi';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSelector } from 'react-redux';
 
@@ -26,7 +25,6 @@ const Message: FC<Props> = ({ message }) => {
         setDeleted(true);
         setIsOpen(false);
     }
-    console.log(message)
     return (
         <div
             className={`

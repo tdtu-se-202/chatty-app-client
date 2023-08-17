@@ -29,9 +29,6 @@ const Layout: FC<Props> = ({ children }) => {
             <>
                 <div className="bg-white dark:bg-black text-black dark:text-white">
                     <ThemeToggleButton/>
-                    <button onClick={handleShowNotification}>
-                        Click me
-                    </button>
                     <div className="flex items-center justify-center flex-col pb-12 min-h-screen md:min-h-fit overflow-auto">
                         {children}
                     </div>
