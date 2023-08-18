@@ -3,6 +3,21 @@
   "version": "1.0.0",
   "private": true,
   "main": "public/electron.js",
+  "config": {
+    "forge": {
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "config": {
+            "repository": {
+              "owner": "smoothkt4951",
+              "name": "chatty-app-client"
+            }
+          }
+        }
+      ]
+    }
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@types/js-cookie": "^3.0.3",
@@ -58,6 +73,7 @@
     ]
   },
   "devDependencies": {
+    "@electron-forge/publisher-github": "^6.3.0",
     "cross-env": "^7.0.3",
     "electron": "^25.3.0",
     "tailwindcss": "^3.2.7"
