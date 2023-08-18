@@ -6,7 +6,25 @@ on:
       - 'v*'
 
 jobs:
-  build:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Electron App for Windows
+        run: npm run build:windows
+
+  build-linux:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,14 +39,32 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      # Build for each platform
-      - name: Build Electron App for Windows
-        run: npm run build:windows
       - name: Build Electron App for Linux
         run: npm run build:linux
+
+  build-mac:
+    runs-on: macOS-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: npm install
+
       - name: Build Electron App for macOS
         run: npm run build:mac -- --publish=never
 
+  release:
+    needs: [build-windows, build-linux, build-mac]
+    runs-on: ubuntu-latest
+
+    steps:
       # Create the GitHub release
       - name: Create Release
         id: create_release
