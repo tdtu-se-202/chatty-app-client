@@ -70,10 +70,11 @@ jobs:
       - name: Upload Release Assets
         run: |
           for file in build-assets/*; do
-            asset_name=$(basename $file)
-            content_type=$(file --mime-type -b $file)
-            echo "Uploading $file ($content_type)..."
-            gh release upload ${{ steps.create_release.outputs.tag_name }} $file --name "$asset_name" --type "$content_type"
+            if [ -f "$file" ]; then
+              asset_name=$(basename $file)
+              echo "Uploading $file ..."
+              gh release upload ${{ github.ref_name }} $file
+            fi
           done
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
