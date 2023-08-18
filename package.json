@@ -52,6 +52,7 @@
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
     "build": "npm run react-build && npm run electron-build",
+    "make": "electron-forge make",
     "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3001 && electron .\""
   },
   "eslintConfig": {
