@@ -3,20 +3,25 @@
   "version": "1.0.0",
   "private": true,
   "main": "public/electron.js",
-  "config": {
-    "forge": {
-      "publishers": [
-        {
-          "name": "@electron-forge/publisher-github",
-          "config": {
-            "repository": {
-              "owner": "smoothkt4951",
-              "name": "chatty-app-client"
-            }
-          }
-        }
-      ]
-    }
+  "build": {
+    "appId": "com.smoothkt4951.chatty-app-client",
+    "mac": {},
+    "win": {},
+    "linux": {},
+    "directories": {
+      "output": "build"
+    },
+    "files": [
+      "build/**/*",
+      "public/electron.js"
+    ],
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "smoothkt4951",
+        "repo": "chatty-app-client"
+      }
+    ]
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
@@ -28,6 +33,7 @@
     "@types/react-redux": "^7.1.25",
     "axios": "^1.3.4",
     "concurrently": "^8.2.0",
+    "electron-builder": "^24.6.3",
     "electron-is-dev": "^2.0.0",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",

@@ -1,39 +1,32 @@
-name: Build
-on: [push, pull_request]
+name: Build and Release
+on:
+  push:
+    branches:
+      - main # Adjust this to your default branch if different
 
 jobs:
-  build_on_linux:
+  release:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@master
-        with:
-          node-version: 14
-      - name: install dependencies
-        run: npm install
-      - name: build
-        run: npm run make
+    strategy:
+      matrix:
+        node-version: [14.x] # Use the version of Node.js that you prefer
 
-  build_on_mac:
-    runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@master
-        with:
-          node-version: 14
-      - name: install dependencies
-        run: npm install
-      - name: build
-        run: npm run make
+      - name: Checkout
+        uses: actions/checkout@v2
 
-  build_on_win:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@master
+      - name: Install Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
         with:
-          node-version: 14
-      - name: install dependencies
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
         run: npm install
-      - name: build
-        run: npm run make
+
+      - name: Build React
+        run: npm run react-build
+
+      - name: Build and Publish Electron App
+        uses: samuelmeuli/action-electron-builder@v2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
