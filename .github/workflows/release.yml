@@ -1,4 +1,4 @@
-name: Release
+name: Build and Release
 
 on:
   push:
@@ -37,17 +37,23 @@ jobs:
       - name: Build Electron App
         run: ${{ matrix.build-command }}
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN  }}
           RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
 
-      - name: Identify Asset Path
-        id: find_asset
-        run: echo "ASSET_PATH=$(ls ${{ matrix.asset-path }})" >> $GITHUB_ENV
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.os }}
+          path: ${{ matrix.asset-path }}
 
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
-        if: matrix.os == 'ubuntu-latest'
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
@@ -56,12 +62,18 @@ jobs:
           draft: false
           prerelease: false
 
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ env.ASSET_PATH }}
-          asset_name: ${{ env.ASSET_PATH }}
-          asset_content_type: application/octet-stream
+          path: build-assets
+
+      - name: Upload Release Assets
+        run: |
+          for file in build-assets/*; do
+            asset_name=$(basename $file)
+            content_type=$(file --mime-type -b $file)
+            echo "Uploading $file ($content_type)..."
+            gh release upload ${{ steps.create_release.outputs.tag_name }} $file --name "$asset_name" --type "$content_type"
+          done
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN  }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
