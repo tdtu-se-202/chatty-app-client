@@ -9,3 +9,5 @@ export const UPLOAD_PRESET = 'chatty-app-upload-preset';
 export const NO_AVATAR = 'https://res.cloudinary.com/dtzs4c2uv/image/upload/v1666326774/noavatar_rxbrbk.png';
 
 export const NO_AVATAR_CHANNEL = 'https://res.cloudinary.com/dtzs4c2uv/image/upload/v1681810456/group2_zth3wl.png';
+
+export const MINIMUM_NOTIFICATION_INTERVAL = 1000

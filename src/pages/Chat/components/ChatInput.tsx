@@ -34,9 +34,17 @@ const ChatInput: FC<Props> = ({ channelId, setMessages }) => {
             },
             channelId
         }
+        const notification = {
+            userId: user?.id,
+            text: e.target.chat.value,
+            user: {
+                username: user?.username,
+            },
+        }
 
         setImages(null);
         socket.emit('chat', message);
+        socket.emit('notification', notification);
         e.target.chat.value = '';
         setIsPending(false);
     };

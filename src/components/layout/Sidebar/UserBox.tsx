@@ -14,6 +14,7 @@ import { getUser } from '../../../services/userService';
 import ThemeToggleButton from "../../buttons/ThemeToggleButton";
 import socket from "../../../lib/socket";
 import {isElectron} from "../../../utils/functions";
+import {MINIMUM_NOTIFICATION_INTERVAL} from "../../../utils/constants";
 
 const UserBox = () => {
   const navigate = useNavigate();
@@ -36,16 +37,22 @@ const UserBox = () => {
     fetchUser();
   }, [user?.id]);
 
+  let lastNotificationTime = 0;
   useEffect(() => {
-    socket.on('chat', (data) => {
+    socket.on('notification', (data) => {
       if (data.userId !== user?.id) {
-        handleShowNotification('New Message', `You have new message come from ${data.user.username}`);
+        const currentTime = Date.now();
+
+        if (currentTime - lastNotificationTime >= MINIMUM_NOTIFICATION_INTERVAL) {
+          handleShowNotification('New Message', `You have new message come from ${data.user.username}`);
+          lastNotificationTime = currentTime;
+        }
       }
     });
 
     return () => {
-      socket.off('chat');
-      socket.removeListener('chat')
+      socket.off('notification');
+      socket.removeListener('notification')
     }
   });
 
