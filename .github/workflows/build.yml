@@ -4,7 +4,6 @@ on: push
 
 jobs:
   build:
-
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -30,8 +29,7 @@ jobs:
         run: npm install
 
       - name: Build Electron App
-        uses: samuelmeuli/action-electron-builder@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
-          build_command: ${{ matrix.build-command }}
+        run: ${{ matrix.build-command }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
