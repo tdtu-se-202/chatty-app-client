@@ -2,14 +2,14 @@ name: Build and Release
 on:
   push:
     branches:
-      - main # Adjust this to your default branch if different
+      - main
 
 jobs:
   release:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x] # Use the version of Node.js that you prefer
+        node-version: [16.x]
 
     steps:
       - name: Checkout
@@ -27,6 +27,6 @@ jobs:
         run: npm run react-build
 
       - name: Build and Publish Electron App
-        uses: samuelmeuli/action-electron-builder@v2
+        uses: samuelmeuli/action-electron-builder@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
