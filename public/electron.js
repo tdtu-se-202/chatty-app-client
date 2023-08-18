@@ -6,9 +6,10 @@ const { app, BrowserWindow, ipcMain, Notification, Tray, Menu } = electron;
 
 let mainWindow;
 let tray = null;
+let isShowNotification = true;
 
 ipcMain.on('show-notification', (event, title, body) => {
-    if (mainWindow && !mainWindow.isVisible()) {
+    if (isShowNotification && mainWindow && !mainWindow.isVisible()) {
         const notification = new Notification({ title, body });
         notification.show();
     }
@@ -46,7 +47,7 @@ function createTray() {
             label: 'Mute Notifications',
             type: 'checkbox',
             click: (menuItem) => {
-                app.setAppUserModelId(menuItem.checked ? 'muted' : 'unmuted');
+                isShowNotification = !menuItem.checked;
             },
         },
         {
