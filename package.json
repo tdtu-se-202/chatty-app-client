@@ -5,6 +5,7 @@
   "version": "1.0.0",
   "private": true,
   "main": "public/electron.js",
+  "homepage": ".",
   "build": {
     "appId": "com.smoothkt4951.chatty-app-client",
     "mac": {
