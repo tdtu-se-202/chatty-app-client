@@ -8,17 +8,25 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IoPersonAddSharp } from 'react-icons/io5';
 import { MdAddToPhotos } from 'react-icons/md';
-
 import { RootState } from '../../../redux/store'
 import { logOut } from '../../../redux/features/authSlice';
 import { getUser } from '../../../services/userService';
 import ThemeToggleButton from "../../buttons/ThemeToggleButton";
+import socket from "../../../lib/socket";
+import {isElectron} from "../../../utils/functions";
+import {MINIMUM_NOTIFICATION_INTERVAL} from "../../../utils/constants";
 
 const UserBox = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
   const [loggedUser, setLoggedUser] = useState<User>();
+
+  const handleShowNotification = (title: string, body: string) => {
+    if (isElectron()) {
+      window.electron.showNotification(title, body);
+    }
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -28,6 +36,25 @@ const UserBox = () => {
 
     fetchUser();
   }, [user?.id]);
+
+  let lastNotificationTime = 0;
+  useEffect(() => {
+    socket.on('notification', (data) => {
+      if (data.userId !== user?.id) {
+        const currentTime = Date.now();
+
+        if (currentTime - lastNotificationTime >= MINIMUM_NOTIFICATION_INTERVAL) {
+          handleShowNotification('New Message', `You have new message come from ${data.user.username}`);
+          lastNotificationTime = currentTime;
+        }
+      }
+    });
+
+    return () => {
+      socket.off('notification');
+      socket.removeListener('notification')
+    }
+  });
 
   return (
     <div className='p-3 flex items-center relative h-22'>

@@ -47,7 +47,9 @@ const Chat = () => {
 
   useEffect(() => {
     socket.on('chat', (data) => {
-      if (data.channelId === channel?.id) setMessages((prev: any) => [...prev, data]);
+      if (data.channelId === channel?.id) {
+        setMessages((prev: any) => [...prev, data]);
+      }
       dispatch(setRefresh());
     });
 

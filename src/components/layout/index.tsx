@@ -7,8 +7,22 @@ import ThemeToggleButton from "../buttons/ThemeToggleButton";
 type Props = {
     children: ReactNode;
 }
+
+declare global {
+    interface Window {
+        electron: {
+            showNotification(title: string, body: string): void;
+        }
+    }
+}
 const Layout: FC<Props> = ({ children }) => {
     const location = useLocation();
+    const handleShowNotification = () => {
+        const title = 'title';
+        const body = 'body';
+
+        window.electron.showNotification(title, body);
+    };
 
     if (location.pathname === '/login' || location.pathname === '/register') {
         return (
