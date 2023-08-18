@@ -1,5 +1,7 @@
 {
   "name": "chatty-app-client",
+  "description": "Chatty Client App",
+  "author": "smoothkt4951",
   "version": "1.0.0",
   "private": true,
   "main": "public/electron.js",
@@ -22,7 +24,9 @@
     },
     "files": [
       "build/**/*",
-      "public/electron.js"
+      "public/electron.js",
+      "public/preload.js",
+      "public/icon.png"
     ],
     "publish": [
       {
@@ -91,6 +95,7 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "dmg-license": "^1.0.11",
     "electron": "^25.3.0",
     "electron-builder": "^24.6.3",
     "tailwindcss": "^3.2.7"
