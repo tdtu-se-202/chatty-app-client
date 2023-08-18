@@ -13,7 +13,7 @@ jobs:
       matrix:
         include:
           - os: macos-latest
-            build-command: 'npm run build:mac'
+            build-command: 'npm run build:mac -- --publish=never'
             asset-path: 'build/*.dmg'
           - os: windows-latest
             build-command: 'npm run build:windows'
