@@ -7,20 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        include:
-          - os: macos-latest
-            build-command: 'npm run build:mac -- --publish=never'
-            asset-path: 'build/*.dmg'
-          - os: windows-latest
-            build-command: 'npm run build:windows'
-            asset-path: 'build/*.exe'
-          - os: ubuntu-latest
-            build-command: 'npm run build:linux'
-            asset-path: 'build/*.AppImage'
+    runs-on: ubuntu-latest
 
     steps:
       - name: Check out code
@@ -34,44 +21,31 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Build Electron App
-        run: ${{ matrix.build-command }}
-        env:
-          GH_TOKEN: ${{ secrets.RELEASE_TOKEN  }}
-          RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
+      # Build for each platform
+      - name: Build Electron App for macOS
+        run: npm run build:mac -- --publish=never
+      - name: Build Electron App for Windows
+        run: npm run build:windows
+      - name: Build Electron App for Linux
+        run: npm run build:linux
 
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.os }}
-          path: ${{ matrix.asset-path }}
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
+      # Create the GitHub release
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
           tag_name: ${{ github.ref_name }}
           release_name: Release ${{ github.ref_name }}
           draft: false
           prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
-      - name: Download Build Artifacts
-        uses: actions/download-artifact@v2
-        with:
-          path: build-assets
-
+      # Upload the assets
       - name: Upload Release Assets
         run: |
-          for file in build-assets/*; do
+          for file in build/*; do
             if [ -f "$file" ]; then
-              asset_name=$(basename $file)
               echo "Uploading $file ..."
               gh release upload ${{ github.ref_name }} $file
             fi
