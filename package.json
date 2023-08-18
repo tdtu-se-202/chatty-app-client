@@ -27,7 +27,7 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "smoothkt4951",
+        "owner": "tdtu-se-202",
         "repo": "chatty-app-client"
       }
     ]
