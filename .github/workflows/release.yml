@@ -47,6 +47,7 @@ jobs:
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
+        if: matrix.os == 'ubuntu-latest'
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         with:
@@ -63,4 +64,4 @@ jobs:
           asset_name: ${{ env.ASSET_PATH }}
           asset_content_type: application/octet-stream
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN  }}
