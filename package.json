@@ -71,10 +71,14 @@
     "react-test": "react-scripts test",
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder --mac --windows --linux",
+    "electron-build:mac": "electron-builder --mac",
+    "electron-build:windows": "electron-builder --windows",
+    "electron-build:linux": "electron-builder --linux",
     "build": "npm run react-build && npm run electron-build",
-    "release": "electron-builder --mac --windows --linux --publish always",
+    "release": "npm run react-build && (uname -s | grep -q Darwin && npm run electron-build:mac) || (npm run electron-build:windows && npm run electron-build:linux)",
     "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3001 && electron .\""
   },
+
   "eslintConfig": {
     "extends": [
       "react-app",

@@ -1,43 +1,29 @@
-name: Build and Release
-
-on: push
-
 jobs:
-  release-mac:
-    runs-on: macos-latest
+  build:
 
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v1
-
-      - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
-
-      - name: Build/release Electron app for macOS
-        uses: samuelmeuli/action-electron-builder@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
-
-  release-other:
     runs-on: ${{ matrix.os }}
+
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        include:
+          - os: macos-latest
+            build-command: 'npm run build:mac'
+          - os: windows-latest
+            build-command: 'npm run build:windows'
+          - os: ubuntu-latest
+            build-command: 'npm run build:linux'
 
     steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v1
+      - name: Check out code
+        uses: actions/checkout@v2
 
-      - name: Install Node.js, NPM and Yarn
-        uses: actions/setup-node@v1
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: 16
+          node-version: '14'
 
-      - name: Build/release Electron app for other platforms
-        uses: samuelmeuli/action-electron-builder@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Electron App
+        run: ${{ matrix.build-command }}
