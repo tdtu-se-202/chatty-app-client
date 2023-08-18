@@ -19,7 +19,6 @@
     }
   },
   "dependencies": {
-    "@electron-forge/publisher-github": "^6.3.0",
     "@reduxjs/toolkit": "^1.9.3",
     "@types/js-cookie": "^3.0.3",
     "@types/node": "^16.18.14",
