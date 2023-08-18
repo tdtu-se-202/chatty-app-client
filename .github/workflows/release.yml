@@ -24,8 +24,17 @@ jobs:
       - name: Build Electron App for Windows
         run: npm run build:windows
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_TOKEN  }}
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
+
+      - name: Zip Windows Build
+        run: Compress-Archive -Path build/win-unpacked/* -DestinationPath build/windows-app.zip
+
+      - name: Upload Windows Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: windows-app
+          path: build/windows-app.zip
 
   build-linux:
     runs-on: ubuntu-latest
@@ -45,8 +54,17 @@ jobs:
       - name: Build Electron App for Linux
         run: npm run build:linux
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_TOKEN  }}
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
+
+      - name: Zip Linux Build
+        run: zip -r build/linux-app.zip build/linux-unpacked/*
+
+      - name: Upload Linux Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-app
+          path: build/linux-app.zip
 
   build-mac:
     runs-on: macOS-latest
@@ -66,14 +84,26 @@ jobs:
       - name: Build Electron App for macOS
         run: npm run build:mac -- --publish=never
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_TOKEN  }}
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
+
+      - name: Zip macOS Build
+        run: zip -r build/macos-app.zip build/mac-unpacked/*
+
+      - name: Upload macOS Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: macos-app
+          path: build/macos-app.zip
 
   release:
     needs: [build-windows, build-linux, build-mac]
     runs-on: ubuntu-latest
 
     steps:
+      - name: Download all builds
+        uses: actions/download-artifact@v2
+
       # Create the GitHub release
       - name: Create Release
         id: create_release
@@ -89,11 +119,6 @@ jobs:
       # Upload the assets
       - name: Upload Release Assets
         run: |
-          for file in build/*; do
-            if [ -f "$file" ]; then
-              echo "Uploading $file ..."
-              gh release upload ${{ github.ref_name }} $file
-            fi
-          done
+          gh release upload ${{ github.ref_name }} windows-app.zip linux-app.zip macos-app.zip
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
