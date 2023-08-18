@@ -53,7 +53,7 @@
   },
   "scripts": {
     "react-start": "PORT=3001 react-scripts start",
-    "react-build": "react-scripts build",
+    "react-build": "CI=false react-scripts build",
     "react-test": "react-scripts test",
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder",
