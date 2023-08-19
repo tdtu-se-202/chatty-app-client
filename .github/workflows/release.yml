@@ -1,44 +1,124 @@
+name: Build and Release
+
 on:
   push:
-    tags: ["*"]
+    tags:
+      - 'v*'
 
 jobs:
-  release:
-    if: startsWith(github.ref, 'refs/tags/v')
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+  build-windows:
+    runs-on: windows-latest
 
     steps:
-      - name: Checkout
+      - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Install Node.js, NPM and Yarn
+      - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 18
+          node-version: '16'
 
-      - name: apt-update
-        if: startsWith(matrix.os, 'ubuntu-latest')
-        run: sudo apt-get update
+      - name: Install Dependencies
+        run: npm install
 
-      - name: autoremove
-        if: startsWith(matrix.os, 'ubuntu-latest')
-        run: sudo apt autoremove
+      - name: Build Electron App for Windows
+        run: npm run build:windows
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
 
-      - name: Install libarchive rpm on Linux
-        if: startsWith(matrix.os, 'ubuntu-latest')
-        run: sudo apt-get install libarchive-tools rpm
+      - name: Zip Windows Build
+        run: Compress-Archive -Path build/win-unpacked/* -DestinationPath build/windows-app.zip
 
-      - name: Release Electron app
-        uses: coparse-inc/action-electron-builder@v1.0.0
+      - name: Upload Windows Build
+        uses: actions/upload-artifact@v2
         with:
-          # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
-          github_token: ${{ secrets.RELEASE_TOKEN }}
+          name: windows-app
+          path: build/windows-app.zip
 
-          # If the commit is tagged with a version (e.g. "v1.0.0"),
-          # release the app after building
-          release: true
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Electron App for Linux
+        run: npm run build:linux
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
+
+      - name: Zip Linux Build
+        run: zip -r build/linux-app.zip build/linux-unpacked/*
+
+      - name: Upload Linux Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: linux-app
+          path: build/linux-app.zip
+
+  build-mac:
+    runs-on: macOS-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Electron App for macOS
+        run: npm run build:mac -- --publish=never
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
+
+      - name: Zip macOS Build
+        run: zip -r build/macos-app.zip build/mac-unpacked/*
+
+      - name: Upload macOS Build
+        uses: actions/upload-artifact@v2
+        with:
+          name: macos-app
+          path: build/macos-app.zip
+
+  release:
+    needs: [build-windows, build-linux, build-mac]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download all builds
+        uses: actions/download-artifact@v2
+
+      # Create the GitHub release
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+
+      # Upload the assets
+      - name: Upload Release Assets
+        run: |
+          gh release upload ${{ github.ref_name }} windows-app.zip linux-app.zip macos-app.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
