@@ -119,6 +119,6 @@ jobs:
       # Upload the assets
       - name: Upload Release Assets
         run: |
-          gh release upload ${{ github.ref_name }} windows-app.zip linux-app.zip macos-app.zip
+          gh release upload ${{ github.ref_name }} windows-app/windows-app.zip linux-app/linux-app.zip macos-app/macos-app.zip
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
