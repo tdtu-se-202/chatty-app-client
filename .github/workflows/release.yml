@@ -117,8 +117,26 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
       # Upload the assets
-      - name: Upload Release Assets
-        run: |
-          gh release upload ${{ github.ref_name }} windows-app/windows-app.zip linux-app/linux-app.zip macos-app/macos-app.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+      - name: Upload Windows Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./windows-app/windows-app.zip
+          asset_name: windows-app.zip
+          asset_content_type: application/zip
+
+      - name: Upload Linux Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./linux-app/linux-app.zip
+          asset_name: linux-app.zip
+          asset_content_type: application/zip
+
+      - name: Upload macOS Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./macos-app/macos-app.zip
+          asset_name: macos-app.zip
+          asset_content_type: application/zip
