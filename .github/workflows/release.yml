@@ -124,6 +124,8 @@ jobs:
           asset_path: ./windows-app/windows-app.zip
           asset_name: windows-app.zip
           asset_content_type: application/zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
       - name: Upload Linux Asset
         uses: actions/upload-release-asset@v1
@@ -132,6 +134,8 @@ jobs:
           asset_path: ./linux-app/linux-app.zip
           asset_name: linux-app.zip
           asset_content_type: application/zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
       - name: Upload macOS Asset
         uses: actions/upload-release-asset@v1
@@ -140,3 +144,5 @@ jobs:
           asset_path: ./macos-app/macos-app.zip
           asset_name: macos-app.zip
           asset_content_type: application/zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
