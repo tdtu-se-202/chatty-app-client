@@ -28,13 +28,13 @@ jobs:
           RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
 
       - name: Zip Windows Build
-        run: Compress-Archive -Path build/* -DestinationPath build/windows-build.zip
+        run: Compress-Archive -Path build/* -DestinationPath windows-build.zip
 
       - name: Upload Windows Build
         uses: actions/upload-artifact@v2
         with:
           name: windows-app
-          path: build/windows-app.zip
+          path: windows-build.zip
 
   build-linux:
     runs-on: ubuntu-latest
@@ -58,13 +58,13 @@ jobs:
           RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
 
       - name: Zip Linux Build
-        run: zip -r build/linux-app.zip build/*
+        run: zip -r linux-app.zip build/*
 
       - name: Upload Linux Build
         uses: actions/upload-artifact@v2
         with:
           name: linux-app
-          path: build/linux-app.zip
+          path: linux-app.zip
 
   build-mac:
     runs-on: macOS-latest
@@ -88,13 +88,13 @@ jobs:
           RELEASE: ${{ startsWith(github.ref, 'refs/tags/v') }}
 
       - name: Zip macOS Build
-        run: zip -r build/macos-app.zip build/*
+        run: zip -r macos-app.zip build/*
 
       - name: Upload macOS Build
         uses: actions/upload-artifact@v2
         with:
           name: macos-app
-          path: build/macos-app.zip
+          path: macos-app.zip
 
   release:
     needs: [build-windows, build-linux, build-mac]
@@ -121,7 +121,7 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./windows-app/windows-app.zip
+          asset_path: ./windows-app.zip
           asset_name: windows-app.zip
           asset_content_type: application/zip
         env:
@@ -131,7 +131,7 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./linux-app/linux-app.zip
+          asset_path: ./linux-app.zip
           asset_name: linux-app.zip
           asset_content_type: application/zip
         env:
@@ -141,7 +141,7 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./macos-app/macos-app.zip
+          asset_path: ./macos-app.zip
           asset_name: macos-app.zip
           asset_content_type: application/zip
         env:
