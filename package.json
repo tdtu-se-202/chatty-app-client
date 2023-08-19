@@ -2,7 +2,7 @@
   "name": "chatty-app-client",
   "description": "Chatty Client App",
   "author": "smoothkt4951",
-  "version": "1.0.0",
+  "version": "1.0.15",
   "private": true,
   "main": "public/electron.js",
   "homepage": ".",
@@ -80,6 +80,7 @@
     "build:windows": "npm run react-build && electron-builder --windows",
     "build:linux": "npm run react-build && electron-builder --linux",
     "release": "npm run react-build && (uname -s | grep -q Darwin && npm run electron-build:mac) || (npm run electron-build:windows && npm run electron-build:linux)",
+    "make:release": "node ./bin/modules/release/index.js",
     "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3001 && electron .\""
   },
   "eslintConfig": {
