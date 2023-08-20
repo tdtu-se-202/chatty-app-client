@@ -36,7 +36,7 @@ const ThemeToggleButton: React.FC = () => {
                         className='w-full hover:bg-neutral-300 dark:hover:bg-neutral-700 duration-200 p-3 px-8 flex items-center'
                     >
                         {isDarkMode ? <FiSun className="mr-2" /> : <FiMoon className="mr-2" />}
-                        {isDarkMode ? "Light" : "Dark"} Mode
+                        {isDarkMode ? "Dark" : "Light"} Mode
                     </button>
                     :
                     <button onClick={() => dispatch(toggleTheme())} className="py-2 px-4 bg-neutral-200 dark:bg-neutral-800 text-black dark:text-white flex items-center">
