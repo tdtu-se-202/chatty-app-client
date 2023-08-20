@@ -10,7 +10,7 @@ import Relogin from "./components/Relogin";
 
 const Login = () => {
   const [isFormOpen, setIsFormOpen] = useState<boolean>(true);
-  const [lastUser, setLastUser] = useState<string>(Cookies.get('last_user') || '');
+  const [lastUser, setLastUser] = useState<string>(localStorage.getItem('last_user') || '');
 
   return (
     <div className="flex justify-center items-center h-[100vh] bg-white dark:bg-black text-black dark:text-white">

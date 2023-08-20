@@ -35,8 +35,10 @@ const LoginForm: FC<Props> = ({ setIsFormOpen }) => {
       setIsFormOpen(false);
 
       const { id, username, image }: any = jwtDecode(result.access_token);
-      Cookies.set('access_token', result.access_token,{expires:3});
-      Cookies.set('last_user', id);
+      // Cookies.set('access_token', result.access_token,{expires:3});
+      // Cookies.set('last_user', id);
+      localStorage.setItem('access_token', result.access_token);
+      localStorage.setItem('last_user', id);
 
       dispatch(setUser({
         username,

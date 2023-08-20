@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 var initialState = {
   selectedChannel: '',
-  lastSeen: Cookies.get('last_seen') || '',
+  lastSeen: localStorage.getItem('last_seen') || '',
   refresh: false
 };
 
@@ -13,7 +13,8 @@ export const channelSlice = createSlice({
   reducers: {
     setLastSeen: (state, action: PayloadAction<any>) => {
       state.lastSeen = action.payload.lastSeen;
-      Cookies.set('last_seen', action.payload.lastSeen);
+      // Cookies.set('last_seen', action.payload.lastSeen);
+      localStorage.setItem('last_seen', action.payload.lastSeen)
     },
     setSelectedChannel: (state, action: PayloadAction<any>) => {
       state.selectedChannel = action.payload.channelId;

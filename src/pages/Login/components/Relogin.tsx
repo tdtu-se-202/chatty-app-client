@@ -44,8 +44,10 @@ const Relogin: FC<Props> = ({ id, setIsFormOpen, setLastId }) => {
       setIsFormOpen(false);
 
       const { id, username, image }: any = jwtDecode(result.access_token);
-      Cookies.set('access_token', result.access_token, { expires: 3 });
-      Cookies.set('last_user', id);
+      // Cookies.set('access_token', result.access_token, { expires: 3 });
+      // Cookies.set('last_user', id);
+      localStorage.setItem('access_token',  result.access_token);
+      localStorage.setItem('last_user',  id)
 
       dispatch(setUser({
         id,
@@ -69,8 +71,10 @@ const Relogin: FC<Props> = ({ id, setIsFormOpen, setLastId }) => {
   }
 
   const handleClickChange = () => {
-    Cookies.remove('access_token');
-    Cookies.remove('last_user');
+    // Cookies.remove('access_token');
+    // Cookies.remove('last_user');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('last_user');
     dispatch(logOut());
     setLastId('');
   }

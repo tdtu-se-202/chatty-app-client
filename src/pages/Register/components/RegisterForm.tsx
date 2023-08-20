@@ -32,7 +32,8 @@ const RegisterForm: FC<Props> = ({ setIsFormOpen }) => {
 
     if (statusCode === '201') {
       setIsFormOpen(false);
-      Cookies.remove('last_user');
+      // Cookies.remove('last_user');
+      localStorage.removeItem('last_user')
       setTimeout(() => {
         return navigate('/login');
       }, 2000);
