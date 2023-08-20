@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './features/authSlice';
 import channelReducer from './features/channelSlice';
 import themeReducer from './features/themeSlice';
+import userReducer from './features/userSlice';
 
 
 export const store = configureStore({
@@ -9,6 +10,8 @@ export const store = configureStore({
     auth: authReducer,
     channel:channelReducer,
     theme: themeReducer,
+    user: userReducer,
+
   }
 });
 

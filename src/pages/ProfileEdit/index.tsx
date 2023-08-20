@@ -1,5 +1,5 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import { useSelector } from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 
 import { RootState } from '../../redux/store'
 import PageInfo from '../../components/layout/ContentArea/PageInfo'
@@ -7,8 +7,11 @@ import { useEffect, useRef, useState } from 'react'
 import { getUser, updateUser, uploadUserImage } from '../../services/userService'
 import BasicButton from '../../components/buttons/BasicButton'
 import { toast, Toaster } from 'react-hot-toast'
+import {updateUserAvatar} from "../../redux/features/userSlice";
 
 const ProfileEdit = () => {
+    const dispatch = useDispatch();
+
     const user = useSelector((state: RootState) => state.auth.user);
     const [details, setDetails] = useState<User>();
     const [image, setImage] = useState<any>();
@@ -23,6 +26,10 @@ const ProfileEdit = () => {
 
         fetchUser();
     }, [user?.id]);
+
+    const handleAvatarChange = (newAvatarUrl: string) => {
+        dispatch(updateUserAvatar(newAvatarUrl));
+    };
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -39,6 +46,7 @@ const ProfileEdit = () => {
         }
 
         if (statusCode === '200') {
+            handleAvatarChange(image);
             return toast.success(message, {
                 duration: 3000,
                 position: 'bottom-center',
