@@ -10,13 +10,13 @@ export type AuthState = {
   } | null;
 };
 
-var initialState: AuthState = { user: null };
+let initialState: AuthState = {user: null};
 
 // const token = Cookies.get('access_token');
 const token = localStorage.getItem('access_token');
 
 if (token) {
-  var { username, id, image }: any = jwtDecode(token);
+  const {username, id, image}: any = jwtDecode(token);
 
   initialState = {
     user: {

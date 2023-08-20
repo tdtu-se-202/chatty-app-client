@@ -24,7 +24,7 @@ const ChannelForm = () => {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
 
-        var secureUrl = NO_AVATAR_CHANNEL;
+        let secureUrl = NO_AVATAR_CHANNEL;
 
         if (e.target.image.files.length === 1) {
             console.log(e.target.image.files)

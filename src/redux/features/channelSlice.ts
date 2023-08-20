@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
 
-var initialState = {
+const initialState = {
   selectedChannel: '',
   lastSeen: localStorage.getItem('last_seen') || '',
   refresh: false
