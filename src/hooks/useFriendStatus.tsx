@@ -6,28 +6,36 @@ import { checkFriend, setFriend } from '../services/userService';
 
 const useFriendStatus = (id: string) => {
     const user = useSelector((state: RootState) => state.auth.user);
-    const [isFriend, setIsFriend] = useState<boolean>(true);
-    const [isPending, setIsPending] = useState<boolean>(true);
+    const [isFriend, setIsFriend] = useState<boolean>(false);
+    const [isPending, setIsPending] = useState<boolean>(false);
 
     useEffect(() => {
-        setIsPending(true);
         const fetchIsFriend = async () => {
+            setIsPending(true);
             const result = await checkFriend(user?.id!, id);
             setIsFriend(result);
+            setIsPending(false);
         }
 
         fetchIsFriend();
-        setIsPending(false);
     }, [user?.id, id]);
 
-    const addFriend = () => {
-        setFriend(user?.id!, id, true);
-        setIsFriend(true);
+    const addFriend = async () => {
+        setIsPending(true);
+        const success = await setFriend(user?.id!, id, true);
+        if (success) {
+            setIsFriend(true);
+        }
+        setIsPending(false);
     }
 
-    const removeFriend = () => {
-        setFriend(user?.id!, id, false);
-        setIsFriend(false);
+    const removeFriend = async () => {
+        setIsPending(true);
+        const success = await setFriend(user?.id!, id, false);
+        if (success) {
+            setIsFriend(false);
+        }
+        setIsPending(false);
     }
 
     return { isPending, isFriend, addFriend, removeFriend };

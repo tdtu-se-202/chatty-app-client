@@ -23,6 +23,7 @@ const UserBox = () => {
   const [loggedUser, setLoggedUser] = useState<User>();
   const avatarUrl = useSelector((state: RootState) => state.user.avatarUrl);
 
+
   const handleShowNotification = (title: string, body: string) => {
     if (isElectron()) {
       window.electron.showNotification(title, body);
@@ -36,7 +37,7 @@ const UserBox = () => {
     }
 
     fetchUser();
-  }, [user?.id]);
+  }, [user?.id, avatarUrl]);
 
   const lastNotificationTime = useRef(0);
   useEffect(() => {
@@ -63,7 +64,7 @@ const UserBox = () => {
       <LazyLoadImage
         onClick={() => navigate('/profile', { state: { userId: user?.id } })}
         className='w-16 h-16 object-cover rounded-full cursor-pointer'
-        src={avatarUrl || loggedUser?.image}
+        src={loggedUser?.image}
         alt='user-pp'
         effect='blur'
       />
