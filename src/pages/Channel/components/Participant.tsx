@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { AiFillStar } from 'react-icons/ai';
-import { BiBlock } from 'react-icons/bi';
+import {BiBlock, BiLockOpen} from 'react-icons/bi';
 import { IoPersonAdd, IoPersonRemove } from 'react-icons/io5';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSelector } from 'react-redux';
@@ -97,7 +97,7 @@ const Participant: FC<Props> = ({ participant, isAdmin }) => {
               ?
               <IconButton
                 isTextCanClosed
-                Icon={BiBlock}
+                Icon={BiLockOpen}
                 text='Unblock'
                 type="button"
                 handleClick={removeBlock}

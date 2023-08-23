@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { toast, Toaster } from "react-hot-toast";
-import { BiBlock, BiMessageDots } from "react-icons/bi";
+import {BiBlock, BiLockOpen, BiMessageDots} from "react-icons/bi";
 import { IoPersonRemoveSharp, IoPersonAddSharp } from "react-icons/io5";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useSelector } from "react-redux";
@@ -146,7 +146,7 @@ const FriendBox: FC<Props> = ({ friend }) => {
                                     ?
                                     <IconButton
                                         isTextCanClosed
-                                        Icon={BiBlock}
+                                        Icon={BiLockOpen}
                                         text='Unblock'
                                         type="button"
                                         handleClick={handleUnBlock}
