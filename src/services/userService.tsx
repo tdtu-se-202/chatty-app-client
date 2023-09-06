@@ -59,7 +59,10 @@ export const checkFriend = async (userId: string, id: string) => {
     const friends: string[] = data.user.friends;
     if (!friends) return false;
 
-    const isFriend = friends.includes(id);
+    //const isFriend = friends.includes(id);
+    const friendInfors: any[] = data.user.friendInfors
+    if (!friendInfors) return false
+    const isFriend = friendInfors.some((friend: any) => friend.id === id);
     return isFriend;
 }
 
@@ -69,7 +72,7 @@ export const getRequests = async (id: string) => {
     return data;
 }
 
-export const setRequest = async (id: string, otherId: string, status: boolean) => {
+export const setRequest = async (id: string, otherId: string, status: string) => {
     const { data } = await axiosWithAuth.put(`/users/${id}/request`, {
         otherId,
         status

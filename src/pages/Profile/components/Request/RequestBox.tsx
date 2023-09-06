@@ -30,10 +30,10 @@ const RequestBox: FC<Props> = ({ request, setTrigger }) => {
     const [isFriend, setIsFriend] = useState(false);
 
     const handleAccept = async () => {
-        const { statusCode, message } = await setRequest(user?.id!, request.id, false);
+        const { statusCode, message } = await setRequest(user?.id!, request.id, 'friend_accepted');
 
         if (statusCode === '200') {
-            addFriend();
+            await addFriend();
             toast.success('Friend added successfully.', {
                 duration: 3000,
                 position: 'bottom-center',
@@ -60,7 +60,7 @@ const RequestBox: FC<Props> = ({ request, setTrigger }) => {
     };
 
     const handleDecline = async () => {
-        await setRequest(user?.id!, request.id, false);
+        await setRequest(user?.id!, request.id, 'friend_rejected');
         setRequestHandled(true);
         setIsFriend(false);
         return setTrigger(prev => !prev);
