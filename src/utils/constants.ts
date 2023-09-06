@@ -1,4 +1,8 @@
-export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+//export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+// local API BASE URL
+export const API_BASE_URL = 'https://chatty.io.vn';
+
+export const SOCKET_BASE_URL = 'https://chatty.io.vn';
 
 // export const CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
 export const CLOUD_NAME = 'chatty-app-tdtu';

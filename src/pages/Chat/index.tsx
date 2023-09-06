@@ -53,6 +53,25 @@ const Chat = () => {
       dispatch(setRefresh());
     });
 
+    socket.on('connect', () => {
+      console.log('Connected to Socket.IO server');
+    });
+    
+    socket.on("connect_error", (err) => {
+      if (err instanceof Error && err.message === 'xhr poll error') {
+        console.error('Server returned 400 Bad Request');
+        // Handle the 400 Bad Request response here
+      } else {
+        console.error('Connection error:', err);
+        // Handle other connection errors here
+      }
+      console.error(err.message);
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Disconnected from Socket.IO server');
+    });
+
     return () => {
       socket.off('chat');
       socket.removeListener('chat')

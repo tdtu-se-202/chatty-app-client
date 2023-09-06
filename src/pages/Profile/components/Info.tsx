@@ -24,7 +24,7 @@ const Info: FC<Props> = ({ details }) => {
     const { isBlocked, addBlock, removeBlock } = useBlockStatus(details?.id);
 
     const handleAdd = async () => {
-        const { statusCode } = await setRequest(user?.id!, details.id, true);
+        const { statusCode } = await setRequest(user?.id!, details.id, 'friend_requested');
 
         if (statusCode === '200') {
             return toast.success('Request sent successfully.', {
