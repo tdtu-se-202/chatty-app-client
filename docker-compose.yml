@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  react:
+    container_name: chatty-app-client-react
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - PORT=3001

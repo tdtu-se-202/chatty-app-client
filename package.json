@@ -66,16 +66,15 @@
     "wait-on": "^7.0.1"
   },
   "scripts": {
-    "postinstall": "electron-builder install-app-deps",
     "react-build": "cross-env CI=false react-scripts build",
-    "react-start": "SET PORT=3001 && react-scripts start",
+    "react-start": "cross-env PORT=3001 && react-scripts start",
     "react-test": "react-scripts test",
     "react-eject": "react-scripts eject",
     "electron-build": "electron-builder --mac --windows --linux",
     "electron-build:mac": "electron-builder --mac",
     "electron-build:windows": "electron-builder --windows",
     "electron-build:linux": "electron-builder --linux",
-    "build": "npm run react-build && npm run electron-build",
+    "build": "npm run react-build",
     "build:mac": "npm run react-build && electron-builder --mac",
     "build:windows": "npm run react-build && electron-builder --windows",
     "build:linux": "npm run react-build && electron-builder --linux",
