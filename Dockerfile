@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 3001
 
 # Specify the command to run on container start
-CMD ["npm", "run", "start:prod"]
+CMD ["npm", "run", "react-start"]
