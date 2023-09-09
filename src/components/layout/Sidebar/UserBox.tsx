@@ -22,6 +22,7 @@ const UserBox = () => {
   const user = useSelector((state: RootState) => state.auth.user);
   const [loggedUser, setLoggedUser] = useState<User>();
   const avatarUrl = useSelector((state: RootState) => state.user.avatarUrl);
+  const [serverName, setServerName] = useState<string | null>(null);
 
 
   const handleShowNotification = (title: string, body: string) => {
@@ -34,7 +35,7 @@ const UserBox = () => {
     const fetchUser = async () => {
       const result = await getUser(user?.id!);
       setLoggedUser(result.user);
-      // socket.emit('server-name');
+      socket.emit('server-name');
     }
 
     fetchUser();
@@ -59,17 +60,19 @@ const UserBox = () => {
     }
   });
 
-  // useEffect(() => {
-  //   socket.on('server-name', (data) => {
-  //     console.log("harry-log: 🚀  file: UserBox.tsx  line: 64  data   ~ data: "
-  //         , data);
-  //   });
-  //
-  //   return () => {
-  //     socket.off('server-name');
-  //     socket.removeListener('server-name')
-  //   }
-  // });
+  useEffect(() => {
+    socket.on('server-name', (data) => {
+      if (data && data.serverName) {
+        console.log("harry-log: 🚀  file: UserBox.tsx  line: 64  data   ~ data: ", data);
+
+        setServerName(data.serverName);
+      }
+    });
+
+    return () => {
+      socket.off('server-name');
+    }
+  }, []);
 
 
   return (
@@ -81,8 +84,9 @@ const UserBox = () => {
         alt='user-pp'
         effect='blur'
       />
-      <p className='ml-3 text-lg w-32 sm:w-64 md:w-40 lg:w-52 xl:w-56 h-7 overflow-hidden'>{loggedUser?.username}</p>
-      {/*<p className='ml-3 text-lg w-32 sm:w-64 md:w-40 lg:w-52 xl:w-56 h-7 overflow-hidden'>aaaa</p>*/}
+      <p className='ml-3 text-lg w-32 sm:w-64 md:w-40 lg:w-52 xl:w-56 h-7 overflow-hidden'>{
+        loggedUser?.username
+      } { serverName ? `- Server name: ${serverName}` : ''}</p>
       <div className=' ml-auto cursor-pointer group'>
         <RxDotsVertical className='text-2xl' />
         <div className='absolute group-hover:block hidden text-black dark:text-white  w-full lg:max-w-[220px] md:w-auto bg-neutral-200 dark:bg-neutral-800 border border-neutral-900 shadow-md rounded-md z-50 right-0 '>
