@@ -84,9 +84,7 @@ const UserBox = () => {
         alt='user-pp'
         effect='blur'
       />
-      <p className='ml-3 text-lg w-32 sm:w-64 md:w-40 lg:w-52 xl:w-56 h-7 overflow-hidden'>{
-        loggedUser?.username
-      } { serverName ? `- Server name: ${serverName}` : ''}</p>
+      <p className='ml-3 text-lg w-32 sm:w-64 md:w-40 lg:w-52 xl:w-56 h-7'>{loggedUser?.username}{ serverName ? `- Server: ${serverName}` : ''}</p>
       <div className=' ml-auto cursor-pointer group'>
         <RxDotsVertical className='text-2xl' />
         <div className='absolute group-hover:block hidden text-black dark:text-white  w-full lg:max-w-[220px] md:w-auto bg-neutral-200 dark:bg-neutral-800 border border-neutral-900 shadow-md rounded-md z-50 right-0 '>
